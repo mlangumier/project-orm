@@ -1,18 +1,23 @@
 package fr.hb.mlang.business.entities;
 
-import javax.management.relation.Role;
-import java.util.HashSet;
-import java.util.Set;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "USER")
 public abstract class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    private String hashedPassword;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    private Set<Role> roles = new HashSet<>(); // OneToMany
+//    private Set<Role> roles = new HashSet<>(); // OneToMany
 }
