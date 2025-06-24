@@ -1,4 +1,4 @@
-package fr.hb.mlang;
+package fr.hb.mlang.business;
 
 public class Main {
     public static void main(String[] args) {

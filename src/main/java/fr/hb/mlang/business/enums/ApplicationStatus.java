@@ -1,4 +1,4 @@
-package fr.hb.mlang.enums;
+package fr.hb.mlang.business.enums;
 
 public enum ApplicationStatus {
     PENDING,

@@ -1,8 +1,8 @@
-package fr.hb.mlang.entities;
+package fr.hb.mlang.business.entities;
 
-import fr.hb.mlang.enums.ApplicationStatus;
+import fr.hb.mlang.business.enums.ApplicationStatus;
 
-public class JobApplication {
+public class Application {
 
     private Long id;
 

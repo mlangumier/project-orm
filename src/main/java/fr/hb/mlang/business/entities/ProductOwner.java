@@ -1,9 +1,9 @@
-package fr.hb.mlang.entities;
+package fr.hb.mlang.business.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductOwner extends User {
+public class ProductOwner extends Role {
 
     private String businessName;
 
