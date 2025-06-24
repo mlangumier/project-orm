@@ -1,11 +1,12 @@
 package fr.hb.mlang.business.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "DEVELOPER")
+@DiscriminatorValue("2")
 public class Developer extends Role {
 
     @Column(name = "first_name",  nullable = false)
@@ -17,7 +18,14 @@ public class Developer extends Role {
     @Column(name = "description")
     private String description;
 
-//    private Set<Skill> skill = new HashSet<>(); // ManyToMany
+    @ManyToMany
+    @JoinTable(
+            name = "DEVELOPER_SKILL",
+            joinColumns = @JoinColumn(name = "developer_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    private Set<Skill> skills = new HashSet<>();
 
-//    private Set<Application> applications = new HashSet<>(); // ManyToMany
+    @OneToMany(mappedBy = "developer")
+    private Set<Application> applications = new HashSet<>();
 }

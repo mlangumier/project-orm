@@ -8,5 +8,7 @@ public class Main {
         System.out.println("Hello World!");
 
         EntityManager em = Persistence.createEntityManagerFactory("PROJECT_ORM_PU").createEntityManager();
+
+        em.close();
     }
 }

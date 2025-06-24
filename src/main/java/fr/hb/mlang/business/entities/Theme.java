@@ -2,6 +2,9 @@ package fr.hb.mlang.business.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "THEME")
 public class Theme {
@@ -13,5 +16,47 @@ public class Theme {
     @Column(name = "name", nullable = false)
     private String name;
 
-//    private Set<Project> projects =  new HashSet<Project>(); // Many
+    @OneToMany(mappedBy = "theme")
+    private Set<Project> projects = new HashSet<>(); // Many
+
+    public Theme() {
+    }
+
+    public Theme(String name, Set<Project> projects) {
+        this.name = name;
+        this.projects = projects;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
+    @Override
+    public String toString() {
+        return "Theme{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", projects=" + projects +
+                '}';
+    }
 }

@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!--
-    Official documentation:
-    https://jakarta.ee/specifications/persistence/3.0/jakarta-persistence-spec-3.0.html#a12229
--->
-
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
 
     <persistence-unit name="PROJECT_ORM_PU">
-
-        <!-- Add this class to be linked to the database if not done automatically -->
         <class>fr.hb.mlang.business.entities.Project</class>
         <class>fr.hb.mlang.business.entities.Theme</class>
         <class>fr.hb.mlang.business.entities.Role</class>
@@ -22,7 +14,6 @@
         <class>fr.hb.mlang.business.entities.Application</class>
 
         <properties>
-            <!-- Connect to database -->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:mysql://localhost:3306/PROJECT_ORM_DB?createDatabaseIfNotExist=true"/>
@@ -36,5 +27,4 @@
             <property name="hibernate.format_sql" value="true"/>
         </properties>
     </persistence-unit>
-
 </persistence>

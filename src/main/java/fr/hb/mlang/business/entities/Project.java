@@ -24,7 +24,10 @@ public class Project {
     @Column(name = "available_budget")
     private Integer availableBudget;
 
-//    private Theme theme; // OneToOne
+    @ManyToOne
+    @JoinColumn(name = "theme_id", nullable = false)
+    private Theme theme;
 
-//    private Set<Application> applications = new HashSet<>(); // ManyToMany
+    @OneToMany(mappedBy = "project")
+    private Set<Application> applications = new HashSet<>();
 }

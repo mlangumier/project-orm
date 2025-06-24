@@ -1,11 +1,11 @@
 package fr.hb.mlang.business.entities;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "PRODUCT_OWNER")
+@DiscriminatorValue("1")
 public class ProductOwner extends Role {
 
     @Column(name = "business_name", nullable = false)
