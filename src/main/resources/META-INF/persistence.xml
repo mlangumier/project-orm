@@ -8,7 +8,6 @@
         <class>fr.hb.mlang.business.entities.Project</class>
         <class>fr.hb.mlang.business.entities.Theme</class>
         <class>fr.hb.mlang.business.entities.User</class>
-        <class>fr.hb.mlang.business.entities.Profile</class>
         <class>fr.hb.mlang.business.entities.ProductOwner</class>
         <class>fr.hb.mlang.business.entities.Developer</class>
         <class>fr.hb.mlang.business.entities.Skill</class>
