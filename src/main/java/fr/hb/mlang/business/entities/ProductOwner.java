@@ -7,26 +7,58 @@ import java.util.Set;
 
 @Entity
 @Table(name = "PRODUCT_OWNER")
-public class ProductOwner extends User {
+public class ProductOwner {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "business_name", nullable = false)
     private String businessName;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     @OneToMany(mappedBy = "productOwner")
     private Set<Project> projects = new HashSet<>();
 
+    /**
+     * Default constructor
+     */
     public ProductOwner() {
     }
 
-    public ProductOwner(String businessName, Set<Project> projects) {
+    /**
+     * Entity constructor
+     *
+     * @param businessName Official name of the business who owns the project
+     * @param user         Entity user who owns this ProductOwner entity
+     */
+    public ProductOwner(String businessName, User user) {
         this.businessName = businessName;
-        this.projects = projects;
+        this.user = user;
     }
 
-    public ProductOwner(String username, String email, String password, String businessName, Set<Project> projects) {
-        super(username, email, password);
+    /**
+     * Entry constructor
+     *
+     * @param id           Database identifier
+     * @param businessName Official name of the business who owns the project
+     * @param user         The user this ProductOwner profile belongs to
+     */
+    public ProductOwner(Long id, String businessName, User user) {
+        this.id = id;
         this.businessName = businessName;
-        this.projects = projects;
+        this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getBusinessName() {
@@ -35,6 +67,14 @@ public class ProductOwner extends User {
 
     public void setBusinessName(String businessName) {
         this.businessName = businessName;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<Project> getProjects() {
@@ -48,7 +88,9 @@ public class ProductOwner extends User {
     @Override
     public String toString() {
         return "ProductOwner{" +
-                "businessName='" + businessName + '\'' +
+                "id=" + id +
+                ", businessName='" + businessName + '\'' +
+                ", user=" + user +
                 ", projects=" + projects +
                 '}';
     }

@@ -4,11 +4,10 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "USER")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class User {
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username", nullable = false, unique = true)
@@ -20,10 +19,35 @@ public abstract class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    /**
+     * Default constructor
+     */
     public User() {
     }
 
+    /**
+     * Entity constructor (without ID)
+     *
+     * @param username Public username
+     * @param email    Email credential
+     * @param password Hashed password credential
+     */
     public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    /**
+     * Entry constructor (with all non-relational parameters)
+     *
+     * @param id       Database identifier
+     * @param username Public username
+     * @param email    Email credential
+     * @param password Hashed password credential
+     */
+    public User(Long id, String username, String email, String password) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;

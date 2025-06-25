@@ -20,7 +20,7 @@ public class JpaFactory {
         try {
             factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         } catch (Exception e) {
-            throw new ExceptionInInitializerError("\n>>> Initial EntityManagerFactory creation failed: " + e);
+            throw new ExceptionInInitializerError("\nInitial EntityManagerFactory creation failed: " + e);
         }
     }
 

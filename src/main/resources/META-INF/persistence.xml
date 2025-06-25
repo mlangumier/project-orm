@@ -5,10 +5,11 @@
              version="3.0">
 
     <persistence-unit name="PROJECT_ORM_PU">
+        <class>fr.hb.mlang.business.entities.User</class>
+        <class>fr.hb.mlang.business.entities.Developer</class>
+        <class>fr.hb.mlang.business.entities.ProductOwner</class>
         <class>fr.hb.mlang.business.entities.Project</class>
         <class>fr.hb.mlang.business.entities.Theme</class>
-        <class>fr.hb.mlang.business.entities.ProductOwner</class>
-        <class>fr.hb.mlang.business.entities.Developer</class>
         <class>fr.hb.mlang.business.entities.Skill</class>
         <class>fr.hb.mlang.business.entities.JobApplication</class>
 
