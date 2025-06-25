@@ -7,11 +7,10 @@
     <persistence-unit name="PROJECT_ORM_PU">
         <class>fr.hb.mlang.business.entities.Project</class>
         <class>fr.hb.mlang.business.entities.Theme</class>
-        <class>fr.hb.mlang.business.entities.User</class>
         <class>fr.hb.mlang.business.entities.ProductOwner</class>
         <class>fr.hb.mlang.business.entities.Developer</class>
         <class>fr.hb.mlang.business.entities.Skill</class>
-        <class>fr.hb.mlang.business.entities.Application</class>
+        <class>fr.hb.mlang.business.entities.JobApplication</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -19,10 +18,8 @@
                       value="jdbc:mysql://localhost:3306/PROJECT_ORM_DB?createDatabaseIfNotExist=true"/>
             <property name="jakarta.persistence.jdbc.user" value="root"/>
             <property name="jakarta.persistence.jdbc.password" value="root"/>
-<!--            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>-->
 
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
         </properties>

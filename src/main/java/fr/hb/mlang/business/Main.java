@@ -9,6 +9,11 @@ public class Main {
 
         EntityManager em = Persistence.createEntityManagerFactory("PROJECT_ORM_PU").createEntityManager();
 
+        //TODO:
+        // - Set up EntityManagerFactory (singleton)
+        // - Test a full CRUD on USER
+        // - Refactorize CRUD to a GenericCrudInterface/Impl
+
         em.close();
     }
 }

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "APPLICATION")
-public class Application {
+public class JobApplication {
 
     @Id
     private Long id;
@@ -29,10 +29,10 @@ public class Application {
     @JoinColumn(name = "developer_id")
     private Developer developer;
 
-    public Application() {
+    public JobApplication() {
     }
 
-    public Application(String message, LocalDateTime appliedAt, ApplicationStatus status, Project project, Developer developer) {
+    public JobApplication(String message, LocalDateTime appliedAt, ApplicationStatus status, Project project, Developer developer) {
         this.message = message;
         this.appliedAt = appliedAt;
         this.status = status;
