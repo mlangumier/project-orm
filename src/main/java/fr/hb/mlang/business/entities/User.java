@@ -19,9 +19,11 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    //TODO: want to fetch ProductOwner & Developer when fetching User? (findOne, not findAll)
-    // -> Either: Check OneToOne relations & FetchType.Eager
-    // -> Or: Setup query with Join
+    @OneToOne(mappedBy = "user", cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
+    private ProductOwner productOwner;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Developer developer;
 
     /**
      * Default constructor
@@ -87,6 +89,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ProductOwner getProductOwner() {
+        return productOwner;
+    }
+
+    public void setProductOwner(ProductOwner productOwner) {
+        this.productOwner = productOwner;
     }
 
     @Override

@@ -1,47 +1,30 @@
 package fr.hb.mlang.business;
 
+import fr.hb.mlang.business.entities.ProductOwner;
 import fr.hb.mlang.business.entities.User;
-import fr.hb.mlang.business.repositories.UserRepository;
+import fr.hb.mlang.business.repositories.ProductOwnerRepositoryImpl;
+import fr.hb.mlang.business.repositories.UserRepositoryImpl;
 import fr.hb.mlang.business.utils.JpaFactory;
-
-import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
-        UserRepository userRepository = new UserRepository();
+        UserRepositoryImpl userRepo = new UserRepositoryImpl();
+        ProductOwnerRepositoryImpl poRepo = new ProductOwnerRepositoryImpl();
 
-        // Persist
+        // User
         User userMatt = new User("Matt", "matt@test.com", "matt@password");
-        userRepository.persist(userMatt);
-        System.out.println("> Persisted Matt: " + userMatt);
+        userRepo.persist(userMatt);
 
-        User userSam = new User("Sam", "sam@test.com", "sam@password");
-        userRepository.persist(userSam);
+        // User - Product Owner
+        ProductOwner poMatt = new ProductOwner("Matt & Co");   // Instantiate new ProductOwner
 
-        User userDan = new User("Dan", "dan@test.com", "dan@password");
-        userRepository.persist(userDan);
+        poRepo.persist(poMatt);                                             // Persist ProductOwner
+        System.out.println("> AFTER PERSIST: " + poMatt);
 
-        // Find All (check before)
-        userRepository.findAll().forEach(System.out::println);
+        poMatt.setUser(userMatt);                                           // Modify instance -> becomes detached
 
-        // Update
-        userMatt.setUsername("Matthew");
-        userRepository.update(userMatt);
-        System.out.println("> Merged Matt: " + userMatt);
-
-        // Find by ID
-        Optional<User> retrievedMatt = userRepository.findById(userMatt.getId());
-        retrievedMatt.ifPresent(foundMatt -> System.out.println("> Found Matt: " + foundMatt));
-
-        // Delete
-        Optional<User> retrievedSam = userRepository.findById(2L);
-        retrievedSam.ifPresent(entity -> userRepository.delete(entity.getId()));
-
-        // Find All (check after)
-        userRepository.findAll().forEach(System.out::println);
-
-//        ProductOwner poMatt = new ProductOwner("Matt & Co", userMatt);
-//        Developer devSam = new Developer("Samuel", "William", "Short description of S.William, Fullstack Developer", userSam);
+        poRepo.update(poMatt);                                              // Update (& refresh) entry with the detached instance's data
+        System.out.println("> AFTER UPDATE: " + poMatt);
 
         JpaFactory.close();
     }

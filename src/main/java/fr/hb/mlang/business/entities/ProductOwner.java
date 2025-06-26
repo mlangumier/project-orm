@@ -16,7 +16,7 @@ public class ProductOwner {
     @Column(name = "business_name", nullable = false)
     private String businessName;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
@@ -33,11 +33,9 @@ public class ProductOwner {
      * Entity constructor
      *
      * @param businessName Official name of the business who owns the project
-     * @param user         Entity user who owns this ProductOwner entity
      */
-    public ProductOwner(String businessName, User user) {
+    public ProductOwner(String businessName) {
         this.businessName = businessName;
-        this.user = user;
     }
 
     /**
@@ -90,8 +88,8 @@ public class ProductOwner {
         return "ProductOwner{" +
                 "id=" + id +
                 ", businessName='" + businessName + '\'' +
-                ", user=" + user +
-                ", projects=" + projects +
+                ", user=" + this.getUser() +
+//                ", projects=" + projects +
                 '}';
     }
 }

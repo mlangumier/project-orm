@@ -22,7 +22,7 @@ public class Developer {
     @Column(name = "description")
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
@@ -49,13 +49,11 @@ public class Developer {
      * @param firstName   First name of the user
      * @param lastName    Last name of the user
      * @param description Description of the user's skills and experience
-     * @param user        Entity User who owns this Developer entity
      */
-    public Developer(String firstName, String lastName, String description, User user) {
+    public Developer(String firstName, String lastName, String description) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.description = description;
-        this.user = user;
     }
 
     /**

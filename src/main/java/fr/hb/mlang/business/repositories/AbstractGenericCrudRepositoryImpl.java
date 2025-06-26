@@ -17,9 +17,16 @@ import java.util.Optional;
  */
 public abstract class AbstractGenericCrudRepositoryImpl<T, K> implements GenericCrudRepository<T, K> {
     private final Class<T> entityClass;
+    private final String findAllQuery;
 
-    protected AbstractGenericCrudRepositoryImpl(Class<T> entityClass) {
+    /**
+     * Passes the parameters required to set up queries
+     * @param entityClass Class of the entity (ex: MyEntity.class)
+     * @param findAllQuery Query used to find all items of a class (can contain JOIN and WHERE operators)
+     */
+    protected AbstractGenericCrudRepositoryImpl(Class<T> entityClass, String findAllQuery) {
         this.entityClass = entityClass;
+        this.findAllQuery = findAllQuery;
     }
 
     @Override
@@ -28,7 +35,8 @@ public abstract class AbstractGenericCrudRepositoryImpl<T, K> implements Generic
         List<T> entities = new ArrayList<>();
 
         try (em) {
-            entities = em.createQuery("FROM " + entityClass.getSimpleName(), entityClass).getResultList();
+
+            entities = em.createQuery(findAllQuery, entityClass).getResultList();
         } catch (Exception e) {
             System.err.printf("> Failed to find entries for class [%s]: %s%n", entityClass, e.getMessage());
         }
