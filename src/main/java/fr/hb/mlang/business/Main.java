@@ -13,6 +13,7 @@ public class Main {
         // Persist
         User userMatt = new User("Matt", "matt@test.com", "matt@password");
         userRepository.persist(userMatt);
+        System.out.println("> Persisted Matt: " + userMatt);
 
         User userSam = new User("Sam", "sam@test.com", "sam@password");
         userRepository.persist(userSam);
@@ -25,22 +26,19 @@ public class Main {
 
         // Update
         userMatt.setUsername("Matthew");
-        User updatedMatt = userRepository.update(userMatt);
+        userRepository.update(userMatt);
+        System.out.println("> Merged Matt: " + userMatt);
 
         // Find by ID
-        Optional<User> retrievedMatt = userRepository.findById(updatedMatt.getId());
-        retrievedMatt.ifPresent(System.out::println);
+        Optional<User> retrievedMatt = userRepository.findById(userMatt.getId());
+        retrievedMatt.ifPresent(foundMatt -> System.out.println("> Found Matt: " + foundMatt));
 
         // Delete
-        Optional<User> retrievedSam = userRepository.findById(2);
-        retrievedSam.ifPresent(userRepository::delete);
+        Optional<User> retrievedSam = userRepository.findById(2L);
+        retrievedSam.ifPresent(entity -> userRepository.delete(entity.getId()));
 
         // Find All (check after)
         userRepository.findAll().forEach(System.out::println);
-
-        //TODO:
-        // - Test a full CRUD on USER
-        // - Refactorize CRUD to a GenericCrudInterface/Impl
 
 //        ProductOwner poMatt = new ProductOwner("Matt & Co", userMatt);
 //        Developer devSam = new Developer("Samuel", "William", "Short description of S.William, Fullstack Developer", userSam);

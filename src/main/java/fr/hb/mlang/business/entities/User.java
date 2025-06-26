@@ -19,6 +19,10 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    //TODO: want to fetch ProductOwner & Developer when fetching User? (findOne, not findAll)
+    // -> Either: Check OneToOne relations & FetchType.Eager
+    // -> Or: Setup query with Join
+
     /**
      * Default constructor
      */
@@ -39,7 +43,7 @@ public class User {
     }
 
     /**
-     * Entry constructor (with all non-relational parameters)
+     * Entry constructor
      *
      * @param id       Database identifier
      * @param username Public username
