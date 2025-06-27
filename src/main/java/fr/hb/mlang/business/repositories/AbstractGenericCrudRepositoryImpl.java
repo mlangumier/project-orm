@@ -15,13 +15,16 @@ import java.util.Optional;
  * @param <T> Instance of the entity
  * @param <K> Primary key of the entity
  */
-public abstract class AbstractGenericCrudRepositoryImpl<T, K> implements GenericCrudRepository<T, K> {
+public abstract class AbstractGenericCrudRepositoryImpl<T, K>
+        implements GenericCrudRepository<T, K> {
+
     private final Class<T> entityClass;
     private final String findAllQuery;
 
     /**
      * Passes the parameters required to set up queries
-     * @param entityClass Class of the entity (ex: MyEntity.class)
+     *
+     * @param entityClass  Class of the entity (ex: MyEntity.class)
      * @param findAllQuery Query used to find all items of a class (can contain JOIN and WHERE operators)
      */
     protected AbstractGenericCrudRepositoryImpl(Class<T> entityClass, String findAllQuery) {
@@ -76,6 +79,7 @@ public abstract class AbstractGenericCrudRepositoryImpl<T, K> implements Generic
             tx.rollback();
         }
     }
+
     @Override
     public void update(T entity) {
         EntityManager em = JpaFactory.getEntityManager();

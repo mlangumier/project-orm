@@ -102,10 +102,12 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+               "id=" + id +
+               ", username='" + username + '\'' +
+               ", email='" + email + '\'' +
+               ", password='" + password + '\'' +
+               ", productOwnerId=" + productOwner.getId() +
+               ", developerId=" + developer.getId() +
+               '}';
     }
 }

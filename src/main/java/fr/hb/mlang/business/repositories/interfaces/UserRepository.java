@@ -5,5 +5,5 @@ import fr.hb.mlang.business.entities.User;
 
 public interface UserRepository extends GenericCrudRepository<User, Long> {
 
-    void addProductOwnerProfile(ProductOwner productOwner);
+    void addProductOwnerProfile(User user, ProductOwner productOwner);
 }

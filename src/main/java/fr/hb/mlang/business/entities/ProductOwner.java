@@ -88,8 +88,6 @@ public class ProductOwner {
         return "ProductOwner{" +
                 "id=" + id +
                 ", businessName='" + businessName + '\'' +
-                ", user=" + this.getUser() +
-//                ", projects=" + projects +
                 '}';
     }
 }

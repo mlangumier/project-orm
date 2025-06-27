@@ -136,7 +136,6 @@ public class Developer {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", description='" + description + '\'' +
-                ", user=" + user +
                 ", skills=" + skills +
                 ", jobApplications=" + jobApplications +
                 '}';
