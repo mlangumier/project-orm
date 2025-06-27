@@ -2,6 +2,7 @@ package fr.hb.mlang.business.repositories;
 
 import fr.hb.mlang.business.repositories.interfaces.GenericCrudRepository;
 import fr.hb.mlang.business.utils.JpaFactory;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -107,7 +108,7 @@ public abstract class AbstractGenericCrudRepositoryImpl<T, K>
             em.remove(managedEntity);
             tx.commit();
         } catch (Exception e) {
-            System.err.printf("> Failed to delete entity of ID [%s]: %s%n", id, e.getMessage());
+            System.err.printf("> Failed to delete entity [%s] of ID[%s]: %s%n", entityClass.getSimpleName(), id, e.getMessage());
 
             tx.rollback();
         }

@@ -10,7 +10,7 @@ import java.util.Set;
 public class Developer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "first_name", nullable = false)
@@ -22,8 +22,8 @@ public class Developer {
     @Column(name = "description")
     private String description;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne
+    @MapsId
     private User user;
 
     @ManyToMany
@@ -50,7 +50,8 @@ public class Developer {
      * @param lastName    Last name of the user
      * @param description Description of the user's skills and experience
      */
-    public Developer(String firstName, String lastName, String description) {
+    public Developer(User user, String firstName, String lastName, String description) {
+        this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
         this.description = description;
@@ -136,8 +137,8 @@ public class Developer {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", description='" + description + '\'' +
-                ", skills=" + skills +
-                ", jobApplications=" + jobApplications +
+//                ", skills=" + skills +
+//                ", jobApplications=" + jobApplications +
                 '}';
     }
 }

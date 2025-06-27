@@ -10,14 +10,13 @@ import java.util.Set;
 public class ProductOwner {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "business_name", nullable = false)
     private String businessName;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne
+    @MapsId // Sets `this.id` to be identical to `user.id` and makes it easier to join tables
     private User user;
 
     @OneToMany(mappedBy = "productOwner")
@@ -34,7 +33,8 @@ public class ProductOwner {
      *
      * @param businessName Official name of the business who owns the project
      */
-    public ProductOwner(String businessName) {
+    public ProductOwner(User user, String businessName) {
+        this.user = user;
         this.businessName = businessName;
     }
 

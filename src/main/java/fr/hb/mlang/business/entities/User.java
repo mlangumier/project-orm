@@ -19,10 +19,10 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToOne(mappedBy = "user", cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "user", cascade =  CascadeType.ALL)
     private ProductOwner productOwner;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "user")
     private Developer developer;
 
     /**
@@ -97,6 +97,16 @@ public class User {
 
     public void setProductOwner(ProductOwner productOwner) {
         this.productOwner = productOwner;
+        productOwner.setUser(this);
+    }
+
+    public Developer getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(Developer developer) {
+        this.developer = developer;
+        developer.setUser(this);
     }
 
     @Override
@@ -106,8 +116,8 @@ public class User {
                ", username='" + username + '\'' +
                ", email='" + email + '\'' +
                ", password='" + password + '\'' +
-               ", productOwnerId=" + productOwner.getId() +
-               ", developerId=" + developer.getId() +
+               ", productOwner=" + productOwner +
+               ", developer=" + developer +
                '}';
     }
 }
