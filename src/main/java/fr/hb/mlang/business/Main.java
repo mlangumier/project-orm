@@ -18,6 +18,7 @@ public class Main {
         // User - Product Owner
         ProductOwner poMatt = new ProductOwner("Matt & Co");   // Instantiate new ProductOwner
 
+        //TODO search: Hibernate JPA persist new entity with relation OneToOne
         poRepo.persist(poMatt);                                             // Persist ProductOwner
         System.out.println("> AFTER PERSIST: " + poMatt);
 
