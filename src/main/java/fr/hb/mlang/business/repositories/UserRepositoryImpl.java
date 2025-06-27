@@ -15,8 +15,6 @@ public class UserRepositoryImpl
         super(User.class, "FROM User");
     }
 
-
-    //TODO: Find another way to implement this relation (~JOIN FETCH?)
     @Override
     public void addProductOwnerProfile(User user, ProductOwner productOwner) {
         EntityManager em = JpaFactory.getEntityManager();
@@ -27,6 +25,7 @@ public class UserRepositoryImpl
             tx.begin();
 
             poRepo.persist(productOwner);
+
             productOwner.setUser(user);
             poRepo.update(productOwner);
 
