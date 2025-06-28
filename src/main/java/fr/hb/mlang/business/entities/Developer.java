@@ -2,15 +2,14 @@ package fr.hb.mlang.business.entities;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "DEVELOPER")
 public class Developer {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "first_name", nullable = false)
@@ -32,10 +31,10 @@ public class Developer {
             joinColumns = @JoinColumn(name = "developer_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
-    private Set<Skill> skills = new HashSet<>();
+    private List<Skill> skills = new ArrayList<>();
 
     @OneToMany(mappedBy = "developer")
-    private Set<JobApplication> jobApplications = new HashSet<>();
+    private List<JobApplication> jobApplications = new ArrayList<>();
 
     /**
      * Default constructor
@@ -55,6 +54,14 @@ public class Developer {
         this.firstName = firstName;
         this.lastName = lastName;
         this.description = description;
+    }
+
+    public Developer(String firstName, String lastName, String description, User user, List<Skill> skills) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.description = description;
+        this.user = user;
+        this.skills = skills;
     }
 
     /**
@@ -114,19 +121,19 @@ public class Developer {
         this.user = user;
     }
 
-    public Set<Skill> getSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(Set<Skill> skills) {
+    public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
 
-    public Set<JobApplication> getJobApplications() {
+    public List<JobApplication> getJobApplications() {
         return jobApplications;
     }
 
-    public void setJobApplications(Set<JobApplication> jobApplications) {
+    public void setJobApplications(List<JobApplication> jobApplications) {
         this.jobApplications = jobApplications;
     }
 

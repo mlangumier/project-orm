@@ -2,7 +2,6 @@ package fr.hb.mlang.business.repositories;
 
 import fr.hb.mlang.business.repositories.interfaces.GenericCrudRepository;
 import fr.hb.mlang.business.utils.JpaFactory;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -42,7 +41,7 @@ public abstract class AbstractGenericCrudRepositoryImpl<T, K>
 
             entities = em.createQuery(findAllQuery, entityClass).getResultList();
         } catch (Exception e) {
-            System.err.printf("> Failed to find entries for class [%s]: %s%n", entityClass, e.getMessage());
+            System.err.println(e.getMessage());
         }
 
         return entities;
@@ -57,7 +56,7 @@ public abstract class AbstractGenericCrudRepositoryImpl<T, K>
 
             return Optional.of(entity);
         } catch (Exception e) {
-            System.err.printf("> Failed to find entry for ID [%s]: %s%n", id, e.getMessage());
+            System.err.println(e.getMessage());
         }
 
         return Optional.empty();
@@ -75,7 +74,7 @@ public abstract class AbstractGenericCrudRepositoryImpl<T, K>
 
             em.refresh(entity);
         } catch (Exception e) {
-            System.err.printf("> Failed to persist entity [%s]: %s%n", entity, e.getMessage());
+            System.err.println(e.getMessage());
 
             tx.rollback();
         }
@@ -91,7 +90,7 @@ public abstract class AbstractGenericCrudRepositoryImpl<T, K>
             em.merge(entity);
             tx.commit();
         } catch (Exception e) {
-            System.err.printf("> Failed to update entity [%s]: %s%n", entity, e.getMessage());
+            System.err.println(e.getMessage());
 
             tx.rollback();
         }
@@ -108,7 +107,7 @@ public abstract class AbstractGenericCrudRepositoryImpl<T, K>
             em.remove(managedEntity);
             tx.commit();
         } catch (Exception e) {
-            System.err.printf("> Failed to delete entity [%s] of ID[%s]: %s%n", entityClass.getSimpleName(), id, e.getMessage());
+            System.err.println(e.getMessage());
 
             tx.rollback();
         }

@@ -1,13 +1,18 @@
 package fr.hb.mlang.business.repositories.interfaces;
 
+import fr.hb.mlang.business.entities.JobApplication;
 import fr.hb.mlang.business.entities.ProductOwner;
+import fr.hb.mlang.business.entities.Project;
+
+import java.util.List;
 
 public interface ProductOwnerRepository
         extends GenericCrudRepository<ProductOwner, Long> {
 
-    // createProject
+    boolean createNewProject(Project project, ProductOwner productOwner);
+//    boolean createNewProject(String title, String description, Theme theme, ProductOwner productOwner);
 
-    // getJobApplicationsForProject(projectId)
+    List<JobApplication> showJobApplicationsForProject(Long projectId);
 
-    // answerJobApplication(boolean accept);
+    boolean answerToJobApplication(JobApplication jobApplication, boolean isAccepted);
 }

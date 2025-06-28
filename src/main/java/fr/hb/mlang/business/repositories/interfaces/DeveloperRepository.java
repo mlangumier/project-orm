@@ -1,14 +1,18 @@
 package fr.hb.mlang.business.repositories.interfaces;
 
 import fr.hb.mlang.business.entities.Developer;
+import fr.hb.mlang.business.entities.Project;
 
-public interface DeveloperRepository extends GenericCrudRepository<Developer, Long>{
+import java.util.List;
 
-    // Display all projects
+public interface DeveloperRepository
+        extends GenericCrudRepository<Developer, Long> {
 
-    // Display available projects
+    List<Project> showAllProjects();
 
-    // Display projects filtered by attribute -> deliveryDate, theme, availableBudget
+    // Display projects filtered by attribute -> deliveryDate, theme, availableBudget (enum? get attribute's name?)
+    List<Project> showAllProjectsFiltered(String filter);
+    //    List<Project> showAllProjects(String filter); //INFO: <<extends>> from showAllProjects() -> method overload?
 
-    // Create jobApplication
+    boolean applyToProject(String message, Project project, Developer developer);
 }

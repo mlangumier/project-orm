@@ -2,8 +2,8 @@ package fr.hb.mlang.business.entities;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "PRODUCT_OWNER")
@@ -16,11 +16,11 @@ public class ProductOwner {
     private String businessName;
 
     @OneToOne
-    @MapsId // Sets `this.id` to be identical to `user.id` and makes it easier to join tables
+    @MapsId // Lists `this.id` to be identical to `user.id` and makes it easier to join tables
     private User user;
 
     @OneToMany(mappedBy = "productOwner")
-    private Set<Project> projects = new HashSet<>();
+    private List<Project> projects = new ArrayList<>();
 
     /**
      * Default constructor
@@ -75,11 +75,11 @@ public class ProductOwner {
         this.user = user;
     }
 
-    public Set<Project> getProjects() {
+    public List<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(Set<Project> projects) {
+    public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
 
