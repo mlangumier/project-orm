@@ -3,8 +3,14 @@ package fr.hb.mlang.business.repositories;
 import fr.hb.mlang.business.entities.Developer;
 import fr.hb.mlang.business.entities.JobApplication;
 import fr.hb.mlang.business.entities.Project;
+import fr.hb.mlang.business.entities.Theme;
+import fr.hb.mlang.business.enums.ProjectStatus;
 import fr.hb.mlang.business.repositories.interfaces.DeveloperRepository;
+import fr.hb.mlang.business.utils.JpaFactory;
+import jakarta.persistence.EntityManager;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeveloperRepositoryImpl
@@ -23,23 +29,82 @@ public class DeveloperRepositoryImpl
     }
 
     @Override
-    public List<Project> showAllProjectsFiltered(String filter) {
-        ProjectRepositoryImpl projectRepository = new ProjectRepositoryImpl();
+    public List<Project> showAllProjectsFilteredByStatus(ProjectStatus status) {
+        List<Project> projects = new ArrayList<>();
+        EntityManager em = JpaFactory.getEntityManager();
 
-        return projectRepository.findAll(); //TODO: needs a custom query in projectRepository to filter results according to method parameter
+        try (em) {
+            projects = em.createQuery("FROM Project p WHERE p.status=:status", Project.class)
+                    .setParameter("status", status)
+                    .getResultList();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        return projects;
     }
 
     @Override
-    public boolean applyToProject(String message, Project project, Developer developer) {
+    public List<Project> showAllProjectsWithTheme(Theme theme) {
+        List<Project> projects = new ArrayList<>();
+        EntityManager em = JpaFactory.getEntityManager();
+
+        try (em) {
+            projects = em.createQuery("FROM Project p WHERE p.theme=:theme", Project.class)
+                    .setParameter("theme", theme)
+                    .getResultList();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        return projects;
+    }
+
+    @Override
+    public List<Project> showAllProjectsWithDeliveryAfterDate(LocalDate deliveryDate) {
+        List<Project> projects = new ArrayList<>();
+        EntityManager em = JpaFactory.getEntityManager();
+
+        try (em) {
+            projects = em.createQuery("FROM Project p WHERE p.deliveryDate>=:deliveryDate", Project.class)
+                    .setParameter("deliveryDate", deliveryDate)
+                    .getResultList();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        return projects;
+    }
+
+    @Override
+    public List<Project> showAllProjectsWithBudgetAbove(Integer availableBudget) {
+        List<Project> projects = new ArrayList<>();
+        EntityManager em = JpaFactory.getEntityManager();
+
+        try (em) {
+            projects = em.createQuery("FROM Project p WHERE p.availableBudget>=:availableBudget", Project.class)
+                    .setParameter("availableBudget", availableBudget)
+                    .getResultList();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        return projects;
+    }
+
+    @Override
+    public boolean applyToProject(JobApplication jobApplication) {
         JobApplicationRepositoryImpl jobApplicationRepository = new JobApplicationRepositoryImpl();
 
         try {
-            JobApplication newJobApplication = new JobApplication(message, project, developer);
-            jobApplicationRepository.persist(newJobApplication);
+            jobApplicationRepository.persist(jobApplication);
 
             return true;
         } catch (Exception e) {
             return false;
         }
     }
+
+    //TODO: Setup generic method for showAllProjects(filter)
+//    private void queryProjectsByFilter(String qlString) {}
 }

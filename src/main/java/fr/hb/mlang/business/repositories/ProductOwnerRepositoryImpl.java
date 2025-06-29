@@ -3,6 +3,8 @@ package fr.hb.mlang.business.repositories;
 import fr.hb.mlang.business.entities.*;
 import fr.hb.mlang.business.enums.ApplicationStatus;
 import fr.hb.mlang.business.repositories.interfaces.ProductOwnerRepository;
+import fr.hb.mlang.business.utils.JpaFactory;
+import jakarta.persistence.EntityManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +34,21 @@ public class ProductOwnerRepositoryImpl
 
     @Override
     public List<JobApplication> showJobApplicationsForProject(Long projectId) {
+        EntityManager em = JpaFactory.getEntityManager();
         ProjectRepositoryImpl projectRepository = new ProjectRepositoryImpl();
         List<JobApplication> jobApplicationsForProject = new ArrayList<>();
 
-        Optional<Project> project = projectRepository.findById(projectId);
+        try (em) {
+            Optional<Project> project = projectRepository.findById(projectId);
 
-        if (project.isPresent()) {
-            jobApplicationsForProject = project.get().getJobApplications();
+            if (project.isPresent()) {
+                jobApplicationsForProject = em.createQuery(
+                                "FROM JobApplication j WHERE j.project=:project",
+                                JobApplication.class
+                        )
+                        .setParameter("project", project.get())
+                        .getResultList();
+            }
         }
 
         return jobApplicationsForProject;
@@ -57,5 +67,7 @@ public class ProductOwnerRepositoryImpl
         } catch (Exception e) {
             return false;
         }
-    };
+    }
+
+    ;
 }

@@ -3,6 +3,7 @@ package fr.hb.mlang.business.entities;
 import fr.hb.mlang.business.enums.ProjectStatus;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -20,7 +21,7 @@ public class Project {
     private String description;
 
     @Column(name = "delivery_date")
-    private Date deliveryDate;
+    private LocalDate deliveryDate;
 
     @Column(name = "available_budget")
     private Integer availableBudget;
@@ -50,7 +51,7 @@ public class Project {
         this.productOwner = productOwner;
     }
 
-    public Project(Long id, Date deliveryDate, Integer availableBudget, List<JobApplication> jobApplications) {
+    public Project(Long id, LocalDate deliveryDate, Integer availableBudget, List<JobApplication> jobApplications) {
         this();
         this.id = id;
         this.deliveryDate = deliveryDate;
@@ -82,11 +83,11 @@ public class Project {
         this.description = description;
     }
 
-    public Date getDeliveryDate() {
+    public LocalDate getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(Date deliveryDate) {
+    public void setDeliveryDate(LocalDate deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
